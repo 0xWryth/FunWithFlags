@@ -12,7 +12,7 @@ Data Science project - Polytech ET5 IT - Noted for S10 (2021-2022)
 
 """"The subject has been chosen by the students..""""
 
-All remaining bugs are listed [here](https://github.com/adepreis/FunWithFlags/issues).
+All remaining bugs are listed [here](https://github.com/0xWryth/FunWithFlags/issues).
 
 
 
@@ -22,7 +22,6 @@ All remaining bugs are listed [here](https://github.com/adepreis/FunWithFlags/is
 </a>
 
 See also : https://the-big-bang-theory.com/fun_with_flags/
-
 
 
 
@@ -36,20 +35,21 @@ Things you need to install the project :
 
 - [MATLAB](https://mathworks.com/products/matlab.html)
 
+
 ### Running
 
 Here are some instructions on how to get the development env running.
 
 First, clone this repository with the following command :
 
-	$ git clone https://github.com/adepreis/FunWithFlags
+	$ git clone https://github.com/0xWryth/FunWithFlags
 
 Then, after setting the MATLAB current path to the `/FunWithFlags` directory just created, execute the program using :
 
-	> matlab.exe [-nodesktop -minimize -wait -log -r] ...
+	> matlab.exe [-nodesktop -minimize -wait -log -r] ./FunWithFlags.m
 
 <!--
-**If you are not familiar with MATLAB**, the most recent [release](https://github.com/adepreis/FunWithFlags/releases) includes the corresponding `.m` files for Octave.
+**If you are not familiar with MATLAB**, the most recent [release](https://github.com/0xWryth/FunWithFlags/releases) includes the corresponding `.m` files for Octave.
 
 ---
 
