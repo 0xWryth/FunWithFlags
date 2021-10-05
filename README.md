@@ -68,21 +68,13 @@ As you can see, we obtained ...
 * **Lucas B.** - @0xWryth
 * **Antonin D.** - @adepreis
 
-<!--
 ---
 
-## Dataset
+## Dataset used
 
-In the `/data` folder, you can find ... ""Dataset source ? Are flags public resources ? wget in .m ?""
+Source: https://flagcdn.com/
 
-
-https://www.kaggle.com/andreshg/countries-iso-codes-continent-flags-url
-Python : https://www.kaggle.com/kirillpupkov/colors-on-national-flags
-
-https://www.kaggle.com/jaredslone/flags-of-the-world-with-abbreviations
-
-https://www.kaggle.com/alexkoshchii/olympicflags
-
+<!--
 ---
 
 ## Documentation
