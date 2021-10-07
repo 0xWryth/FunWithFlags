@@ -2,18 +2,13 @@
 
 Data Science project - Polytech ET5 IT - Noted for S10 (2021-2022)
 
-
-
+<!--
 ![Illustration : application preview](./doc/screenshot.jpg)
+-->
 
 ## Asked work
 
-- [Working guide for the project](./doc/[FRENCH]_Projet_Guide.pdf) :fr:
-
-""""The subject has been chosen by the students..""""
-
-All remaining bugs are listed [here](https://github.com/0xWryth/FunWithFlags/issues).
-
+The [subject (:fr:)](./doc/[FRENCH]_Enonce.pdf) has been chosen by the students among...
 
 
 <br>
@@ -21,7 +16,7 @@ All remaining bugs are listed [here](https://github.com/0xWryth/FunWithFlags/iss
   <img src="http://img.youtube.com/vi/GXnBy3Iz1u4/0.jpg" alt="[TBBT extract] Fun with flag" title="TBBT fun with flag extract" width="240" height="180" border="10" />
 </a>
 
-See also : https://the-big-bang-theory.com/fun_with_flags/
+See also : https://the-big-bang-theory.com/fun_with_flags to learn more about [vexillology](https://en.wikipedia.org/wiki/Vexillology) !
 
 
 
@@ -42,7 +37,7 @@ Here are some instructions on how to get the development env running.
 
 First, clone this repository with the following command :
 
-	$ git clone https://github.com/0xWryth/FunWithFlags
+	$ git clone https://github.com/0xWryth/FunWithFlags.git
 
 Then, after setting the MATLAB current path to the `/FunWithFlags` directory just created, execute the program using :
 
@@ -59,6 +54,8 @@ After being pre-proceeded (...), the flag dataset is ... before being passed to 
 
 
 As you can see, we obtained ...
+
+All remaining bugs are listed [here](https://github.com/0xWryth/FunWithFlags/issues).
 -->
 
 ---
@@ -72,7 +69,7 @@ As you can see, we obtained ...
 
 ## Dataset used
 
-Source: https://flagcdn.com/
+Source: [flagcdn.com](https://flagcdn.com), a free service created by Flagpedia.net that provides an API to ease flag downloading for programmers.
 
 <!--
 ---

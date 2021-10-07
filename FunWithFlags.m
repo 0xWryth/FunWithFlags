@@ -1,20 +1,7 @@
 %% Fun with Flags
+% Project of Data Science - Polytech ET5 2021-2022
 
-% Getting all country names and their ISO 3166 country code
-codes = webread('https://flagcdn.com/en/codes.json');
+% Getting all country codes and flags
+country_flags = CollectFlags()
 
-% Getting country codes
-country_names = fieldnames(codes);
-data_size = size(country_names, 1);
-
-% Iterating over every countries
-for i = 1:data_size
-    country_code = char(country_names(i));  
-    url = strcat('https://flagcdn.com/w2560/', country_code, '.png');
-  
-    try
-        [data, colormap, alpha] = webread(url);
-    catch
-        disp(['[Error] Unable to fetch ' url]);
-    end
-end
+disp(country_flags)
