@@ -2,11 +2,29 @@
 % Project of Data Science - Polytech ET5 2021-2022
 
 % Getting all country codes and flags
-country_flags = CollectFlags();
+%country_flags = CollectFlags();
 
 disp(country_flags)
 
+
+colors = {      % https://github.com/bahamas10/css-color-names/blob/master/css-color-names.json
+    validatecolor("#d2691e"), "brown";
+    validatecolor("#0000ff"), "blue";
+    validatecolor("#000000"), "black";
+    validatecolor("#808080"), "gray";
+    validatecolor("#008000"), "green";
+    validatecolor("#ffa500"), "orange";
+    validatecolor("#663399"), "purple";
+    validatecolor("#ff0000"), "red";
+    validatecolor("#ffffff"), "white";
+    validatecolor("#ffff00"), "yellow";
+};
+
+
+
 % TODO : use factorial analysis (ACF) through multiple correspondence analysis (ACM)
+
+
 
 % TODO : plot ACF results and determine correlations that may exist between the characteristics of a country and the colours of its flag
 
