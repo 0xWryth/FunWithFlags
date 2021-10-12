@@ -11,7 +11,7 @@ codes = webread('https://flagcdn.com/en/codes.json');
 country_names = fieldnames(codes);
 data_size = size(country_names, 1);
 
-country_flags = cell(data_size, 4); % 1 row = {'fr'} {dataMatrix} {colormapMatrix} {alphaMatrix}
+country_flags = cell(data_size, 5); % 1 row = {'fr'} {dataMatrix} {colormapMatrix} {alphaMatrix} {colorPixelNumberVector}
 
 % Iterating over every countries
 for i = 1:data_size
@@ -20,11 +20,13 @@ for i = 1:data_size
 
     try
         [data, colormap, alpha] = webread(url);
+        colorPixelNumberVector = PixelNumberPerColor(data, colormap);
 
         country_flags{i, 1} = country_code;
         country_flags{i, 2} = data;
         country_flags{i, 3} = colormap;
         country_flags{i, 4} = alpha;
+        country_flags{i, 5} = colorPixelNumberVector;
     catch
         disp(['[Error] Unable to fetch ' url]);
     end
