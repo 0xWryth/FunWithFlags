@@ -19,19 +19,19 @@ colors = {
 }
 
 country_size = size(country_flags, 1);
-country_colors_proportion =  cell(country_size, 2); % 1 row = {'fr'} {colorProportionVector}
+country_colors_proportion = cell(country_size, 2); % 1 row = {'fr'} {colorProportionVector}
 
 % Iterating over countries
 for i=1:country_size
-    % Setting country data aliases 
+    % Setting country data aliases
     country_name = country_flags{i,1};
     country_raw_data = country_flags{i, 2};
     country_colormap = country_flags{i, 3};
     country_color_pixel_number = country_flags{i, 5};
-    
+
     % Creating color distance map
     distance_map = DistanceMap(country_colormap, colors);
-  
+
     analysis_color_size = size(colors, 1);
     colormap_color_size = size(country_colormap, 1);
 
@@ -46,7 +46,7 @@ for i=1:country_size
             end
         end
     end
-    
+
     % Getting every color proportion (%)
     color_proportion = zeros(analysis_color_size, 1);
 
@@ -61,10 +61,10 @@ for i=1:country_size
         if (proportion < 0.005) % 0.5%
             proportion = 0;
         end
-        
+
         color_proportion(j) = proportion;
     end
-    
+
     country_colors_proportion{i, 1} = country_name;
     country_colors_proportion{i, 2} = color_proportion;
 end
@@ -76,7 +76,7 @@ disp(country_colors_proportion);
 
 % TODO : use factorial analysis (ACF) through multiple correspondence analysis (ACM)
 
-
+% TODO : display saved/total information on axes
 
 % TODO : plot ACF results and determine correlations that may exist between the characteristics of a country and the colours of its flag
 
