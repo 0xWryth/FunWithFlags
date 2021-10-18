@@ -8,22 +8,48 @@ n = i*j;
 
 % Creation of frequences matrix (uncorrelated matrix)
 npp=sum(sum(N));
-U=N./npp;
 
 % Creation of "hand" (i) and "foot" (j) vectors
-Ui=sum(U,1);
-Uj=sum(U,2);
+Uj=sum(N,1); % column sum
+Ui=sum(N,2); % line sum
 
-Uij = (Ui.*Uj)/npp
+Uij = (Ui.*Uj)/npp;
 
 % J column correlation quantity
-Khi2j = (1/n).*(((Uij-Uj).^2)./sqrt(Uij))
+Khi2 = getKi2vec(Uij, N);
 
-Khi2 = sum(sum(Khi2j))
+Dmain = diag(Ui)
+Dpied = diag(Uj)
 
-% Dmain = diag(Ui).^(-1)
-% Dpied = diag(Uj).^(-1/2)
-% E = [cos(theta) sin(theta); -sin(theta) cos(theta)] % E is the rotation matrix ? What is theta ?
-% D (or D^1/2) = "the ACP D matrix ??? I^1/2 ?? If weights are equals, D=(1/N).*I (see wiki page) ??"
-% L = sqrt(npp).*Dmain.*N.*Dpied.*E
-% C = sqrt(n-1).*Dpied.*E.*D
+V = cov(N); % or cov(X) ?
+[E, D] = eig(V);
+d=diag(D);
+[d, I] = sort(d, 'descend');
+D = diag(d);
+
+L = sqrt(npp) * Dmain^(-1) * N * Dpied^(-1/2) * E
+C = sqrt(n-1) * Dpied^(-1/2) * E * D^(1/2)
+
+% http://www.math.u-bordeaux.fr/~mchave100p/wordpress/wp-content/uploads/2013/10/AFC.pdf
+
+function Khi2test = getKi2J(j, U, N)
+    Khi2test = 0;
+   
+    n = size(N, 1);
+    for i=1:n
+        uij = U(i, j);
+        nij = N(i, j);
+        Khi2test = Khi2test + ((uij - nij) ./ (sqrt(uij))).^2;
+    end
+    
+    Khi2test = Khi2test .* (1 ./ n);
+end
+
+function Khi2vec = getKi2vec(U, N)
+    vec_size = size(N, 2);
+    Khi2vec = zeros(vec_size, 1);
+
+    for j=1:vec_size
+        Khi2vec(j) = getKi2J(j, U, N);
+    end
+end
