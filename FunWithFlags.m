@@ -21,6 +21,8 @@ colors = {
 country_size = size(country_flags, 1);
 country_colors_proportion = cell(country_size, 2); % 1 row = {'fr'} {colorProportionVector}
 
+country_colors_volume = zeros(country_size, size(colors, 1)); % 1 row = {'fr'} {whi_px_nb} {blk_px_nb} {red_px_nb} ...
+
 % Iterating over countries
 for i=1:country_size
     % Setting country data aliases
@@ -56,13 +58,16 @@ for i=1:country_size
     % Iterating over color pixel number vector
     for j=1:analysis_color_size
         proportion = colors_numbers(j) / number_of_pixel;
+        px_volume = colors_numbers(j);
 
         % Removing "transition color", found in the color map between 2 colors.
         if (proportion < 0.005) % 0.5%
             proportion = 0;
+            px_volume = 1; % not 0 to avoid NaN/Inf errors in eig/svd functions..
         end
 
         color_proportion(j) = proportion;
+        country_colors_volume(i, j) = px_volume;
     end
 
     country_colors_proportion{i, 1} = country_name;
