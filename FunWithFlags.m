@@ -79,24 +79,5 @@ disp(country_colors_proportion);
 % disp(DistanceMap(colormap, colors));
 
 
-% TODO : use factorial analysis (ACF) through multiple correspondence analysis (ACM)
-
-% TODO : display saved/total information on axes
-
-% TODO : plot ACF results and determine correlations that may exist between the characteristics of a country and the colours of its flag
-
-% TODO : display percentage of information on axes (the distribution of
-% information along the different axes (represented by eigenvalues ?)
-
-% ============
-
-
-% Would be a great idea but sizes are different...
-% mean_flag = cellfun(@mean, country_flags(:,2), 'UniformOutput', false);
-
-
-% ============
-
-
-% Other method to study :
-% use Linear Discriminant Analysis (AFD) with other features (width, height, number of color, ...)
+% TODO: refine parameters !!!
+AFC(country_colors_volume, country_flags(:,1), colors(:,2)')

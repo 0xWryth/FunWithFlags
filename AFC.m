@@ -1,68 +1,102 @@
-function AFC(N) % TODO : (arguments (N ?) and results (data to plot ?) to determine)
-
-    % TODO : Translate (or delete) french comments
-
+%% AFC.m 
+% Use factorial analysis (ACF) "through multiple correspondence analysis (ACM)" (?)
+% And plot ACF results to determine correlations that may exist between the characteristics of a country and the colours of its flag
+% 
+% TODO : Translate (or delete) french comments
+function AFC(N, row_labels, col_labels) % TODO : (arguments (N ?) and results (data to plot ?) to determine)
+    row_labels = {'A', 'B', 'C', 'D'};
+    col_labels = {'1', '2', '3'};
     N = [13,2,5;    % Override N for testing purpose
          20,2,8;
          10,5,5;
-         7,1,22 ]   % video example Remi Bachelet
+         7,1,22 ];   % video example Remi Bachelet
 
-    i = size(N,2);
-    j = size(N,1);
+     
+    row_labels = {'A', 'B', 'C'};
+    N = [1,3,5;    % Override N for testing purpose
+         1,8,6;
+         4,1,1 ]   % video example of J.Dabounou
+    
 
+    [j, i] = size(N);
+    
     n = i*j;
 
     npp=sum(sum(N));
 
     % Creation of "hand" (i) and "foot" (j) vectors
-    Uj=sum(N,1); % column sum
-    Ui=sum(N,2); % line sum
+    Nj=sum(N,1); % column sum
+    Ni=sum(N,2); % line sum
 
     % Creation of frequences matrix (uncorrelated matrix)
-    Uij = (Ui.*Uj)/npp;
+    Uij = (Ni.*Nj)/npp;
+    
+    % Probability matrix (idem to frequence mat)
+    P = N/npp
 
+    
+    % Creation of row and colums profiles
+    Uj=sum(P,1) % column sum
+    Ui=sum(P,2) % line sum
 
-
+    % Row/Colums profiles diagonalization
+    Dmain = diag(Ui);
+    Dpied = diag(Uj);
+    
+    
     % "Matrice des ecarts à l'indépendance" (diff between original and uncorrelated)
-    R = N - Uij
-
+    R = N - Uij;
 
 
     % J column correlation quantity
     Khi2 = getKi2vec(Uij, N);
 
-    Dmain = diag(Ui)
-    Dpied = diag(Uj)
+    % X_ ("X barre") = "weighed khi²-distance"
+    X_ = (Dmain^(-1/2)) * (P-(Ui.*Uj)) * (Dpied^(-1/2))
+    % S_  ("S barre" : "correspondrait à la matrice de var-cov ou de correlation")
+    S_ = X_' * X_
+    
+    
+    % Eigval and Eigvect of S_
+    [EVec, EVal] = eig(S_)
+    
+    
+    % Compute principal line components
+    F_ = X_ * EVec
+    % Compute principal row components
+    for s=1:rank(S_)
+        G_(:,s) = sqrt(EVal(s,s)) * EVec(:,s);
+    end
 
+    
+    %% "Cours"
     V = cov(N); % or cov(X) ?
     [E, D] = eig(V);
     d=diag(D);
     [d, I] = sort(d, 'descend');
     D = diag(d);
 
+    % "Ces formules proviennent du cours mais nous n'avons pas [su les exploiter | compris à quoi elles correspondent]..."
     L = sqrt(npp) * Dmain^(-1) * N * Dpied^(-1/2) * E
     C = sqrt(n-1) * Dpied^(-1/2) * E * D^(1/2)
 
 
     % C est un vecteur colonne ? non, mat col*col
     % L est un vecteur ligne ? non, mat row*col
+    
+    
+    %% "Affichage final"
+    res_row = [ F_(:,1) F_(:,2) ];
+    res_col = [ G_(1,:)' G_(2,:)' ];
 
-
-
-    % Reporter (2 dimensions de L et C ???) dans un tableau (n,2) :
-    % L1i L2i
-    % C1j L2j
-    % todo: tester si Ck*Lk = R ?
-    res_row = [ L(:,1) L(:,2) ];
-    res_col = [ C(1,:)' C(2,:)' ];
-
-
-    plot(res_row(:,1), res_row(:,2), '*b', res_col(:,1), res_col(:,2), '*r', 0, 0, '-k');
+    % TODO : display saved/total information on axes !!! (the distribution of
+    % information along the different axes (represented by eigenvalues ? inertia ?)
+    plot(res_row(:,1), res_row(:,2), '*b', res_col(:,1), res_col(:,2), '+r', 0, 0, '-k');
+    
+    % Display labels
+    text(res_row(:,1)+.002, res_row(:,2)+.002, row_labels, 'Color', [0 0 1]);
+    text(res_col(:,1)+.002, res_col(:,2)+.002, col_labels, 'Color', [1 0 0]);
 end
-
-% http://www.math.u-bordeaux.fr/~mchave100p/wordpress/wp-content/uploads/2013/10/AFC.pdf
-% https://youtube.com/playlist?list=PL02D3C245C7AAD789
-% http://rb.ec-lille.fr/l/Analyse_de_donnees/Analyse_Factorielle_des_Correspondances-AFC.pdf
 
 
 

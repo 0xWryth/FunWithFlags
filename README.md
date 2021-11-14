@@ -73,7 +73,15 @@ All remaining bugs are listed [here](https://github.com/0xWryth/FunWithFlags/iss
 
 Source: [flagcdn.com](https://flagcdn.com), a free service created by [Flagpedia.net](https://flagpedia.net) that provides an API to ease flag downloading for programmers.
 
+
 <!--
+## References
+
+- [Cours analyse factorielle des correspondances - Rémi Bachelet](https://youtube.com/playlist?list=PL02D3C245C7AAD789)
+    - [Support de cours](http://rb.ec-lille.fr/l/Analyse_de_donnees/Analyse_Factorielle_des_Correspondances-AFC.pdf)
+- [Analyse Factorielle des Correspondances - Jaouad Dabounou](https://youtube.com/playlist?list=PLzjg2z2kYUrg6XvYVYMxdZQnouBEwavfQ)
+- http://www.math.u-bordeaux.fr/~mchave100p/wordpress/wp-content/uploads/2013/10/AFC.pdf
+
 ---
 
 ## Documentation
