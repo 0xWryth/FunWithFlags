@@ -4,19 +4,20 @@
 % 
 % TODO : Translate (or delete) french comments
 function AFC(N, row_labels, col_labels) % TODO : (arguments (N ?) and results (data to plot ?) to determine)
-    row_labels = {'A', 'B', 'C', 'D'};
-    col_labels = {'1', '2', '3'};
-    N = [13,2,5;    % Override N for testing purpose
-         20,2,8;
-         10,5,5;
-         7,1,22 ];   % video example Remi Bachelet
-
-     
-    row_labels = {'A', 'B', 'C'};
-    N = [1,3,5;    % Override N for testing purpose
-         1,8,6;
-         4,1,1 ]   % video example of J.Dabounou
     
+    % Testing/Debug examples
+%     col_labels = {'1', '2', '3'}; 
+%     row_labels = {'A', 'B', 'C'};
+%     N = [1,3,5;    % Override N for testing purpose
+%          1,8,6;
+%          4,1,1 ]   % video example of J.Dabounou
+    
+%     row_labels = {'A', 'B', 'C', 'D'};
+%     col_labels = {'1', '2', '3'};
+%     N = [13,2,5;    % Override N for testing purpose
+%          20,2,8;
+%          10,5,5;
+%          7,1,22 ];   % from Remi Bachelet video example
 
     [j, i] = size(N);
     
@@ -48,8 +49,10 @@ function AFC(N, row_labels, col_labels) % TODO : (arguments (N ?) and results (d
     R = N - Uij;
 
 
+    disp("Mesure du Khi² : ");
     % J column correlation quantity
-    Khi2 = getKi2vec(Uij, N);
+    Khi2 = getKi2vec(Uij, N)
+    
 
     % X_ ("X barre") = "weighed khi²-distance"
     X_ = (Dmain^(-1/2)) * (P-(Ui.*Uj)) * (Dpied^(-1/2))
@@ -58,32 +61,37 @@ function AFC(N, row_labels, col_labels) % TODO : (arguments (N ?) and results (d
     
     
     % Eigval and Eigvect of S_
-    [EVec, EVal] = eig(S_)
+    [EVec, EVal] = eig(S_);
+    EVec
+    e=diag(EVal);
+    [EVal, I] = sort(e, 'descend')
+    % EVal = diag(e)
     
+    disp(EVec*I)
     
     % Compute principal line components
-    F_ = X_ * EVec
+    F_ = X_ * EVec                      % TO DEBUG: F(:,1) seems to always be a 0 vec !!!!
+    
+    
     % Compute principal row components
-    for s=1:rank(S_)
-        G_(:,s) = sqrt(EVal(s,s)) * EVec(:,s);
+    for s=1:rank(S_)+1                  % not sure if +1 is a good idea...
+        G_(:,s) = sqrt(EVal(s)) * EVec(:,s);
     end
+    
+    G_  % debug display
 
     
-    %% "Cours"
-    V = cov(N); % or cov(X) ?
-    [E, D] = eig(V);
-    d=diag(D);
-    [d, I] = sort(d, 'descend');
-    D = diag(d);
+    %% From "Cours"
+%     V = cov(N); % or cov(X) ?
+%     [E, D] = eig(V);
+%     d=diag(D);
+%     [d, I] = sort(d, 'descend');
+%     D = diag(d);
 
-    % "Ces formules proviennent du cours mais nous n'avons pas [su les exploiter | compris à quoi elles correspondent]..."
-    L = sqrt(npp) * Dmain^(-1) * N * Dpied^(-1/2) * E
-    C = sqrt(n-1) * Dpied^(-1/2) * E * D^(1/2)
+    % "Ces formules proviennent du cours mais nous n'avons pas su les exploiter..."
+%     L = sqrt(npp) * Dmain^(-1) * N * Dpied^(-1/2) * E     % mat col*col correspondant à ???
+%     C = sqrt(n-1) * Dpied^(-1/2) * E * D^(1/2)            % mat row*col correspondant à ???
 
-
-    % C est un vecteur colonne ? non, mat col*col
-    % L est un vecteur ligne ? non, mat row*col
-    
     
     %% "Affichage final"
     res_row = [ F_(:,1) F_(:,2) ];

@@ -13,6 +13,8 @@ data_size = size(country_names, 1);
 
 country_flags = cell(data_size, 5); % 1 row = {'fr'} {dataMatrix} {colormapMatrix} {alphaMatrix} {colorPixelNumberVector}
 
+disp('Collecting flags, please wait...')
+
 % Iterating over every countries
 for i = 1:data_size
     country_code = char(country_names(i));
